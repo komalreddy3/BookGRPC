@@ -1,0 +1,33 @@
+syntax = "proto3";
+option go_package = "/GRPC";
+message BookRequest{
+    string id=1;
+}
+message Book{
+    string id=1;
+    string isbn=2;
+    string title=3;
+    Author author=4;
+}
+message Author{
+   string firstname=1;
+   string lastname=2;
+}
+message BookListResponse{
+    repeated Book books=1;
+}
+message BookResponse{
+    Book book=1;
+}
+message NoRequest{
+
+}
+service BookService{
+    rpc getBooks(NoRequest) returns (BookListResponse);
+    rpc getBook(BookRequest) returns (BookResponse);
+    rpc createBook(Book) returns (BookResponse);
+    rpc updateBook(BookRequest) returns (BookListResponse);
+    rpc deleteBook(BookRequest) returns (BookListResponse);
+}
+
+
